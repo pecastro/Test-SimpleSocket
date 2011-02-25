@@ -16,68 +16,24 @@ use List::Util 'first';
 use IO::Socket;
 
 #use Test::Builder;
-has 'debug' => (
-    is => 'ro',
-    isa => 'Int',
-);
+has 'debug' => ( is => 'ro', isa => 'Int');
 
-has 'server_options' => (
-    is => 'rw',
-    isa => 'HashRef',
-    required => 1,
-);
-
-has 'server' => (
-    is => 'rw',
-    isa => 'IO::Socket',
-    #lazy_build => 1,
-    builder => '_build_server',
-);
-
-has 'client' => (
-    is => 'rw',
-    isa => 'IO::Socket::INET',
-);
-
-has 'hello_msg' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'server_actions' => (
-    is => 'rw',
-    isa => 'HashRef',
-);
-
-has 'bye_msg' => (
-    is => 'rw',
-    isa => 'Str',
-);
+has 'server_options' => ( is => 'rw', isa => 'HashRef', required => 1);
+has 'server' => ( is => 'rw', isa => 'IO::Socket', builder => '_build_server');
+has 'client' => ( is => 'rw', isa => 'IO::Socket::INET');
+has 'hello_msg' => ( is => 'rw', isa => 'Str');
+has 'server_actions' => ( is => 'rw', isa => 'HashRef');
+has 'bye_msg' => ( is => 'rw', isa => 'Str');
 
 # list of the methods at which we'll randomly disconnect
-has 'random_die_at' => (
-    is => 'rw',
-    isa => 'ArrayRef',
-    default => sub { [] },
-);
+has 'random_die_at' => ( is => 'rw', isa => 'ArrayRef', default => sub { [] });
 
 # list of the methods at which we'll just disconnect
-has 'die_at' => (
-    is => 'rw',
-    isa => 'ArrayRef',
-    default => sub { [] },
-);
+has 'die_at' => ( is => 'rw', isa => 'ArrayRef', default => sub { [] });
 
-has 'pipe' => (
-    is => 'rw',
-    isa => 'IO::Pipe',
-);
+has 'pipe' => ( is => 'rw', isa => 'IO::Pipe');
+has 'message_queue' => ( is => 'rw', isa => 'ArrayRef', default => sub { [] });
 
-has 'message_queue' => (
-    is => 'rw',
-    isa => 'ArrayRef',
-    default => sub { [] },
-);
 
 sub _build_server {
     my ($self, $params ) = @_;
