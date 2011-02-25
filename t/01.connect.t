@@ -55,13 +55,11 @@ my $sock = IO::Socket::INET->new(PeerPort => $port,
 
 isa_ok($sock,'IO::Socket::INET',"Got a socket");
 
-#$sock->autoflush(1);
-$SB::single=1;
 is(read_socket($sock),$hello_msg,"Server says hello");
 
 print $sock $list_expect;
-
 is(read_socket($sock),$list_reply,"Server replies to list request");
+
 $sock->close;
 
 #$test->stop;
