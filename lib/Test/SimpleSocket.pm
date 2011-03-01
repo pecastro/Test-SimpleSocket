@@ -1,4 +1,4 @@
-package Test::Mock::SimpleSocket;
+package Test::SimpleSocket;
 
 #  ABSTRACT: a totally cool way to do totally great stuff
 

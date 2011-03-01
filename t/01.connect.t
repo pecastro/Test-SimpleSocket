@@ -3,7 +3,7 @@ use warnings;
 
 use FindBin::libs;
 use Test::More;
-use Test::Mock::SimpleSocket;
+use Test::SimpleSocket;
 use Data::Dumper;
 use Carp::Always;
 
@@ -17,14 +17,14 @@ my $bye_msg   = "SimpleSocket server says bye bye\n";
 my $list_expect = "ask the server to list\n";
 my $list_reply = "server replies\n";
 
-my $test = Test::Mock::SimpleSocket->new(
+my $test = Test::SimpleSocket->new(
     server_options => {
         Proto => 'tcp',
         Listen   => 1,
         Reuse    => 1,
     },
     hello_msg => $hello_msg,
-    server_actions    => {
+    server_actions => {
         list => {
             expect => $list_expect,
             reply  => $list_reply,
@@ -33,7 +33,7 @@ my $test = Test::Mock::SimpleSocket->new(
     bye_msg => $bye_msg,
 ) or die "death $!";
 
-isa_ok($test,'Test::Mock::SimpleSocket');
+isa_ok($test,'Test::SimpleSocket');
 
 $test->start;
 my $port = $test->server->sockport;
